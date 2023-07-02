@@ -4,6 +4,9 @@ import com.alunoonline.api.model.Aluno;
 import com.alunoonline.api.model.Professor;
 import com.alunoonline.api.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +31,15 @@ public class ProfessorService {
     public void delete(Long id) {
         repository.deleteById(id);
 
+    }
+
+    public List<Professor>buscarPorNome(String nome) {
+        return repository.buscarPorNome(nome);
+    }
+
+    public Page<Professor> listarProfessorPaginado(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return repository.findAll(pageable);
     }
 }
 
