@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD,ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = NomeValidation.class)
+@Constraint(validatedBy = NomeValidator.class)
 
 public @interface NomeValidation {
     String message() default "A informação passada para o campo nao é aceita" ;

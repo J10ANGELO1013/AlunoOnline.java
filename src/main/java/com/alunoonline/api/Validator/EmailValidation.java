@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD,ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = EmailValidation.class)
+@Constraint(validatedBy = EmailValidator.class)
 
 public @interface EmailValidation {
     String message() default "Este email nao é aceito" ;
