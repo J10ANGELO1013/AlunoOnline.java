@@ -1,11 +1,10 @@
 package com.alunoonline.api.controller;
 
 import com.alunoonline.api.model.Aluno;
+import com.alunoonline.api.model.DTO.AlunoDTO;
 import com.alunoonline.api.model.DTO.AlunoNomeCursoDTO;
-import com.alunoonline.api.model.Professor;
 import com.alunoonline.api.service.AlunoService;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -23,8 +22,8 @@ public class AlunoController<aluno> {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Aluno> criar(@RequestBody @Valid Aluno aluno) {
-        Aluno alunoCriado = service.criar(aluno);
+    public ResponseEntity<AlunoDTO> criar(@RequestBody AlunoDTO aluno) {
+        AlunoDTO alunoCriado = service.criar(aluno);
 
         return ResponseEntity.status(201).body(alunoCriado);
     }
@@ -65,10 +64,13 @@ public class AlunoController<aluno> {
     ){
       return ResponseEntity.ok(service.listarAlunoPaginado(page, size));
     }
+
+
     @GetMapping("/curso-nome/{id}")
-    public ResponseEntity<AlunoNomeCursoDTO> obterNomeCursoAluno(@PathVariable long id){
-        AlunoNomeCursoDTO alunoDTO =
-                new AlunoNomeCursoDTO(service.procurarPeloId(id).get());
+    public ResponseEntity<AlunoNomeCursoDTO> obterNomeCursoAluno(@PathVariable @Valid long id){
+
+        AlunoNomeCursoDTO alunoDTO = service.buscarPorId(id);
+
         return ResponseEntity.ok(alunoDTO);
     }
 

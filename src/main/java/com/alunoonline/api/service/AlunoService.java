@@ -1,7 +1,10 @@
 package com.alunoonline.api.service;
 
 import com.alunoonline.api.model.Aluno;
+import com.alunoonline.api.model.DTO.AlunoDTO;
+import com.alunoonline.api.model.DTO.AlunoNomeCursoDTO;
 import com.alunoonline.api.repository.AlunoRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,16 +18,34 @@ import java.util.Optional;
 public class AlunoService {
     @Autowired
     AlunoRepository repository;
-    public Aluno criar(Aluno aluno){
-        return repository.save(aluno);
+
+    @Autowired
+    ModelMapper modelMapper;
+    //alterar aluno criar por alunodto
+    public AlunoDTO criar(AlunoDTO alunoDTO){
+        Aluno aluno =modelMapper.map(alunoDTO, Aluno.class);
+        aluno = repository.save(aluno);
+        alunoDTO =modelMapper.map(aluno,AlunoDTO.class);
+
+        return alunoDTO;
 
     }
     public List<Aluno> listarTodos(){
         return repository.findAll();
 
     }
+
+
+
     public Optional<Aluno> procurarPeloId(Long id){
         return repository.findById(id);
+
+    }
+
+    //aula de hoje 15/07/2003
+    public AlunoNomeCursoDTO buscarPorId(Long id){
+        AlunoNomeCursoDTO alunoNomeCursoDTO = modelMapper.map(this.procurarPeloId(id).get(), AlunoNomeCursoDTO.class);
+        return alunoNomeCursoDTO;
 
     }
     public void delete(Long id) {

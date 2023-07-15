@@ -1,5 +1,7 @@
 package com.alunoonline.api.model;
 
+import com.alunoonline.api.Validator.EmailValidation;
+import com.alunoonline.api.Validator.NomeValidation;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,8 +25,11 @@ public class Aluno implements Serializable {
     private Long id;
 
     @NotEmpty
+    @NomeValidation
     private String nome;
+    private Double idade;
     @Email
+    @EmailValidation
     private String email;
     private String curso;
 }
