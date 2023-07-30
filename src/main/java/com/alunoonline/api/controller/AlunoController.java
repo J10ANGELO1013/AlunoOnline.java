@@ -22,7 +22,7 @@ public class AlunoController<aluno> {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<AlunoDTO> criar(@RequestBody AlunoDTO aluno) {
+    public ResponseEntity<AlunoDTO> criar(@RequestBody @Valid AlunoDTO aluno) {
         AlunoDTO alunoCriado = service.criar(aluno);
 
         return ResponseEntity.status(201).body(alunoCriado);
