@@ -54,7 +54,7 @@ class AlunoServiceTest {
 
     @Test
     void procurarPeloId() {
-        long ID_CONSULTA = 200l
+        long ID_CONSULTA = 200l;
         Aluno aluno = Aluno.builder() .id(ID_CONSULTA).nome("Rodrigo").build();
         Mockito.when(alunoRepository.findById(ID_CONSULTA))
                 .thenReturn(Optional.of(aluno));
